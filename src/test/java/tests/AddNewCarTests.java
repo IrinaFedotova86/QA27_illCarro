@@ -1,5 +1,6 @@
 package tests;
 
+import enums.Fuel;
 import models.Car;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,7 @@ public class AddNewCarTests extends TestBase{
                 .manufacture("Mazda")
                 .model("M3")
                 .year("2022")
-                .fuel("Petrol")
+                .fuel(Fuel.PETROL)
                 .seat(4)
                 .carClass("C")
                 .carRegNumber("678-900"+i)

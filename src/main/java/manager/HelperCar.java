@@ -1,5 +1,6 @@
 package manager;
 
+import enums.Fuel;
 import models.Car;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,12 +22,18 @@ public class HelperCar extends HelperBase{
         type(By.id("make"), car.getManufacture());
         type(By.id("model"), car.getModel());
         type(By.id("year"), car.getYear());
-        type(By.id("fuel"), car.getFuel());
+        //type(By.id("fuel"), car.getFuel());
         type(By.id("seats"), car.getSeat());
         type(By.id("class"), car.getCarClass());
         type(By.id("serialNumber"), car.getCarRegNumber());
         type(By.id("price"), car.getPrice());
 
+        clickFuel(car.getFuel());
+    }
+
+    private void clickFuel(Fuel fuel) {
+        WebElement elementFuel = wd.findElement(By.xpath(fuel.getLocator()));
+        elementFuel.click();
     }
 
     public void submitCarForm() {
