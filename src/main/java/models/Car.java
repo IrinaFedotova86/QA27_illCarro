@@ -18,7 +18,7 @@ import lombok.ToString;
     private String manufacture;
     private String model;
     private String year;
-    private Fuel fuel;
+    private String fuel;
     private int seat;
     private String carClass;
     private String carRegNumber;

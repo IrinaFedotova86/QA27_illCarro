@@ -38,10 +38,10 @@ public class HelperUser extends HelperBase{
         type(By.id("password"), user.getPassword());
     }
 
-    public void submit() {
-        click(By.xpath("//*[@type='submit']"));
-        //click(By.xpath("//button[text()='Y’alla!']"));
-    }
+ //   public void submit() {
+ //       click(By.xpath("//*[@type='submit']"));
+ //       //click(By.xpath("//button[text()='Y’alla!']"));
+ //   }
 
     public boolean isLogget() {
         return  isElementPresent(By.xpath("//h2[text()='Logged in success']"));
@@ -57,20 +57,13 @@ public class HelperUser extends HelperBase{
        // WebElement el = wd.findElement(By.cssSelector(".dialog-container>h2"));
        // String text = el.getText();
        // return text;
+
         pause(3000);
         System.out.println(wd.findElement(By.cssSelector(".dialog-container>h2")).getText());
         return wd.findElement(By.cssSelector(".dialog-container>h2")).getText();
     }
 
-    public void pause(int time){
-        try {
 
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     public void logout() {
         click(By.xpath("//*[text()=' Logout ']"));
@@ -112,15 +105,23 @@ public class HelperUser extends HelperBase{
     }
 
     public void checkPolicyXY() {
+        if(!wd.findElement(By.id("terms-of-use")).isSelected()) {
+            WebElement lable = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+            Rectangle rectangle = lable.getRect();
+            int w = rectangle.getWidth();
+            int xOffSet = -w / 2;
+            // yOffset =0
+            Actions actions = new Actions(wd);
+            actions.moveToElement(lable, xOffSet, 0).click().release().perform();
 
-        WebElement lable = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
-        Rectangle rectangle = lable.getRect();
-        int w = rectangle.getWidth();
-        int xOffSet = -w/2;
-       // yOffset =0
-        Actions actions= new Actions(wd);
-        actions.moveToElement(lable, xOffSet,0).click().release().perform();
+            // Dimension size = wd.manage().window().getSize();
+        }
+    }
 
-        // Dimension size = wd.manage().window().getSize();
+    public void login(User user) {
+        openLoginForm();
+        fillLoginForm(user);
+        submit();
+        clickOkButton();
     }
 }
